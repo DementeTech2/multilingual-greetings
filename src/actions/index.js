@@ -1,13 +1,4 @@
 
-
-//  update names
-//  change language
-//  update languages list
-//  update greetings list
-
-//  get languages list  Async
-//  transalate greetings Async
-
 import { yandexTrCall } from "../utils";
 import { FROM_LANGUAGE, GREETING } from "../config";
 
@@ -39,9 +30,11 @@ export function updateNames(namesList) {
 function receiveTranslation(json) {
   return {
     type: RECEIVE_TRANSLATION,
-    greetingsList: json.text
+    singleGreatting: json.text[0]
   }
 }
+
+
 
 
 export function requestTranslation(newLanguage) {
@@ -50,14 +43,12 @@ export function requestTranslation(newLanguage) {
     const toLanguage = newLanguage || state.languages.selected;
 
     if(state.namesList.length > 0){
-      const textList = state.namesList.map(name => `${GREETING} ${name}`)
-
       dispatch({type: REQUEST_TRANSLATION})
-      return yandexTrCall('/translate', 'POST', {'lang': `${FROM_LANGUAGE}-${toLanguage}`, 'text': textList})
+      return yandexTrCall('/translate', 'POST', {'lang': `${FROM_LANGUAGE}-${toLanguage}`, 'text': `${GREETING}`})
             .then(response => response.json())
             .then(json => dispatch(receiveTranslation(json)));
     } else {
-      dispatch(receiveTranslation({text:[]}))
+      dispatch(receiveTranslation({text:state.greetings.singleGreatting}))
     }
   }
 }

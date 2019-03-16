@@ -28,6 +28,7 @@ class App extends Component {
               <Greetings />
             </div>
           }
+          <a className={"yandex"} href="http://translate.yandex.com/">Powered by Yandex.Translate</a>
         </header>
       </div>
     );

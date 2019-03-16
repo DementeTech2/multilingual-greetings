@@ -11,7 +11,7 @@ const initialState = {
     },
     namesList: [],
     greetings :{
-        list: [],
+        singleGreatting: 'Hi',
         isLoading: true
     }
 }
@@ -41,7 +41,7 @@ function greetings(state = initialState.greetings, action) {
         case RECEIVE_TRANSLATION:
             return {
                 isLoading: false,
-                list: action.greetingsList
+                singleGreatting: action.singleGreatting
             };
         default:
             return state;

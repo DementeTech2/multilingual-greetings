@@ -1,4 +1,9 @@
-.greetings a {
-    color: white;
-    font-size: 11px;
+
+.greetings h3.awesome {
+    border: 1px dashed;
+    border-color: red;
+    border-radius: 10px;
+    background-color: white;
+    color: blue;
+    line-height: 2em;
 }

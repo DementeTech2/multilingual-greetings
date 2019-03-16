@@ -3,12 +3,29 @@ import { connect } from 'react-redux'
 import '../styles/Greetings.css';
 
 class Greetings extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            awesome: false
+        }
+    }
+
+    toggleStyle(ev){
+        this.setState({
+            awesome: Boolean(ev.target.checked)
+        })
+    }
+
     render() {
         return (
             <div className="greetings">
-                <a href="http://translate.yandex.com/">Powered by Yandex.Translate</a>
-                {this.props.greetingsList.map((elem, i) => (
-                    <h3 key={i}>{elem}</h3>
+                <label>
+                    Toggle awesome style
+                    <input type="checkbox" onChange={ev => this.toggleStyle(ev)}/>
+                </label>
+                {this.props.namesList.map((elem, i) => (
+                    <h3 key={i} className={ this.state.awesome? "awesome":'' }>{this.props.singleGreatting} {elem}</h3>
                 ))}
             </div>
         );
@@ -18,11 +35,13 @@ class Greetings extends Component {
 function mapStateToProps(state) {
     const isLoadingLanguages = state.languages.isLoading;
     const isLoadingTranslation = state.greetings.isLoading;
-    const greetingsList = state.greetings.list;
+    const namesList = state.namesList;
+    const singleGreatting = state.greetings.singleGreatting;
     return {
-      isLoadingLanguages,
-      isLoadingTranslation,
-      greetingsList
+        singleGreatting,
+        isLoadingLanguages,
+        isLoadingTranslation,
+        namesList
     }
   }
   
